@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { faker } from '@faker-js/faker'
-import { type NoteImage, type Note } from '@prisma/client'
+import { type Note, type NoteImage } from '@prisma/client'
 import { prisma } from '#app/utils/db.server.ts'
 import { expect, test } from '#tests/playwright-utils.ts'
 
@@ -10,7 +10,7 @@ test('Users can create note with an image', async ({ page, login }) => {
 
 	const newNote = createNote()
 	const altText = 'cute koala'
-	await page.getByRole('link', { name: 'new note' }).click()
+	await page.getByRole('link', { name: 'nouvelle note' }).click()
 
 	// fill in form and submit
 	await page.getByRole('textbox', { name: 'title' }).fill(newNote.title)
@@ -34,7 +34,7 @@ test('Users can create note with multiple images', async ({ page, login }) => {
 	const newNote = createNote()
 	const altText1 = 'cute koala'
 	const altText2 = 'koala coder'
-	await page.getByRole('link', { name: 'new note' }).click()
+	await page.getByRole('link', { name: 'nouvelle note' }).click()
 
 	// fill in form and submit
 	await page.getByRole('textbox', { name: 'title' }).fill(newNote.title)

@@ -46,7 +46,7 @@ export default function NotesRoute() {
 								className="h-16 w-16 rounded-full object-cover lg:h-24 lg:w-24"
 							/>
 							<h1 className="text-center text-base font-bold md:text-lg lg:text-left lg:text-2xl">
-								{ownerDisplayName}'s Notes
+								Notes de {ownerDisplayName}
 							</h1>
 						</Link>
 						<ul className="overflow-y-auto overflow-x-hidden pb-12">
@@ -58,7 +58,7 @@ export default function NotesRoute() {
 											cn(navLinkDefaultClassName, isActive && 'bg-accent')
 										}
 									>
-										<Icon name="plus">New Note</Icon>
+										<Icon name="plus">Nouvelle note</Icon>
 									</NavLink>
 								</li>
 							) : null}

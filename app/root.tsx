@@ -78,7 +78,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	return [
 		{ title: data ? 'Lopin' : 'Erreur | Lopin' },
-		{ name: 'description', content: `Un site web pour ma ferme en 5 minutes` },
+		{ name: 'description', content: `Un site web pour ma ferme, en 5 minutes` },
 	]
 }
 

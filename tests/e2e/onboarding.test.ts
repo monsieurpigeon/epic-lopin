@@ -75,20 +75,22 @@ test('onboarding with link', async ({ page, getOnboardingData }) => {
 
 	await expect(page).toHaveURL(`/onboarding`)
 	await page
-		.getByRole('textbox', { name: /^username/i })
+		.getByRole('textbox', { name: /^identifiant/i })
 		.fill(onboardingData.username)
 
-	await page.getByRole('textbox', { name: /^name/i }).fill(onboardingData.name)
+	await page.getByRole('textbox', { name: /^nom/i }).fill(onboardingData.name)
 
-	await page.getByLabel(/^password/i).fill(onboardingData.password)
+	await page.getByLabel(/^mot de passe/i).fill(onboardingData.password)
 
-	await page.getByLabel(/^confirm password/i).fill(onboardingData.password)
+	await page
+		.getByLabel(/^confirmer le mot de passe/i)
+		.fill(onboardingData.password)
 
-	await page.getByLabel(/terms/i).check()
+	await page.getByLabel(/politique/i).check()
 
-	await page.getByLabel(/remember me/i).check()
+	await page.getByLabel(/souvenir de moi/i).check()
 
-	await page.getByRole('button', { name: /Create an account/i }).click()
+	await page.getByRole('button', { name: /créer un compte/i }).click()
 
 	await expect(page).toHaveURL(`/`)
 

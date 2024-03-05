@@ -151,9 +151,9 @@ export default function SignupRoute() {
 		<div className="container flex min-h-full flex-col justify-center pb-32 pt-20">
 			<div className="mx-auto w-full max-w-lg">
 				<div className="flex flex-col gap-3 text-center">
-					<h1 className="text-h1">Welcome aboard {data.email}!</h1>
+					<h1 className="text-h1">Bienvenue à bord {data.email}!</h1>
 					<p className="text-body-md text-muted-foreground">
-						Please enter your details.
+						Veuillez saisir vos coordonnées
 					</p>
 				</div>
 				<Spacer size="xs" />
@@ -164,7 +164,10 @@ export default function SignupRoute() {
 				>
 					<HoneypotInputs />
 					<Field
-						labelProps={{ htmlFor: fields.username.id, children: 'Username' }}
+						labelProps={{
+							htmlFor: fields.username.id,
+							children: 'Identifiant',
+						}}
 						inputProps={{
 							...getInputProps(fields.username, { type: 'text' }),
 							autoComplete: 'username',
@@ -173,7 +176,7 @@ export default function SignupRoute() {
 						errors={fields.username.errors}
 					/>
 					<Field
-						labelProps={{ htmlFor: fields.name.id, children: 'Name' }}
+						labelProps={{ htmlFor: fields.name.id, children: 'Nom' }}
 						inputProps={{
 							...getInputProps(fields.name, { type: 'text' }),
 							autoComplete: 'name',
@@ -181,7 +184,10 @@ export default function SignupRoute() {
 						errors={fields.name.errors}
 					/>
 					<Field
-						labelProps={{ htmlFor: fields.password.id, children: 'Password' }}
+						labelProps={{
+							htmlFor: fields.password.id,
+							children: 'Mot de passe',
+						}}
 						inputProps={{
 							...getInputProps(fields.password, { type: 'password' }),
 							autoComplete: 'new-password',
@@ -192,7 +198,7 @@ export default function SignupRoute() {
 					<Field
 						labelProps={{
 							htmlFor: fields.confirmPassword.id,
-							children: 'Confirm Password',
+							children: 'Confirmer le mot de passe',
 						}}
 						inputProps={{
 							...getInputProps(fields.confirmPassword, { type: 'password' }),
@@ -205,7 +211,7 @@ export default function SignupRoute() {
 						labelProps={{
 							htmlFor: fields.agreeToTermsOfServiceAndPrivacyPolicy.id,
 							children:
-								'Do you agree to our Terms of Service and Privacy Policy?',
+								"Acceptez-vous nos conditions d'utilisation et notre politique de confidentialité?",
 						}}
 						buttonProps={getInputProps(
 							fields.agreeToTermsOfServiceAndPrivacyPolicy,
@@ -216,7 +222,7 @@ export default function SignupRoute() {
 					<CheckboxField
 						labelProps={{
 							htmlFor: fields.remember.id,
-							children: 'Remember me',
+							children: 'Se souvenir de moi',
 						}}
 						buttonProps={getInputProps(fields.remember, { type: 'checkbox' })}
 						errors={fields.remember.errors}
@@ -232,7 +238,7 @@ export default function SignupRoute() {
 							type="submit"
 							disabled={isPending}
 						>
-							Create an account
+							Créer un compte
 						</StatusButton>
 					</div>
 				</Form>

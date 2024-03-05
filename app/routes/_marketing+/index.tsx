@@ -17,7 +17,7 @@ export default function Index() {
 						data-paragraph
 						className="mt-6 animate-slide-top text-xl/7 text-muted-foreground [animation-fill-mode:backwards] [animation-delay:0.8s] xl:mt-8 xl:animate-slide-left xl:text-xl/6 xl:leading-10 xl:[animation-fill-mode:backwards] xl:[animation-delay:1s]"
 					>
-						Un site web pour ma ferme en 5 minutes
+						Un site web pour ma ferme, en 5 minutes
 					</p>
 				</div>
 			</div>

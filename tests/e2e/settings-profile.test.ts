@@ -3,9 +3,9 @@ import { faker } from '@faker-js/faker'
 import { verifyUserPassword } from '#app/utils/auth.server.ts'
 import { prisma } from '#app/utils/db.server.ts'
 import { readEmail } from '#tests/mocks/utils.ts'
-import { expect, test, createUser, waitFor } from '#tests/playwright-utils.ts'
+import { createUser, expect, test, waitFor } from '#tests/playwright-utils.ts'
 
-const CODE_REGEX = /Here's your verification code: (?<code>[\d\w]+)/
+const CODE_REGEX = /Voici votre code de vérification: (?<code>[\d\w]+)/
 
 test('Users can update their basic info', async ({ page, login }) => {
 	await login()
@@ -90,7 +90,7 @@ test('Users can change their email address', async ({ page, login }) => {
 	await page.getByRole('link', { name: /change email/i }).click()
 	await page.getByRole('textbox', { name: /new email/i }).fill(newEmailAddress)
 	await page.getByRole('button', { name: /send confirmation/i }).click()
-	await expect(page.getByText(/check your email/i)).toBeVisible()
+	await expect(page.getByText(/vérifiez vos emails/i)).toBeVisible()
 	const email = await waitFor(() => readEmail(newEmailAddress), {
 		errorMessage: 'Confirmation email was not sent',
 	})
@@ -99,7 +99,7 @@ test('Users can change their email address', async ({ page, login }) => {
 	const code = codeMatch?.groups?.code
 	invariant(code, 'Onboarding code not found')
 	await page.getByRole('textbox', { name: /code/i }).fill(code)
-	await page.getByRole('button', { name: /submit/i }).click()
+	await page.getByRole('button', { name: /continuer/i }).click()
 	await expect(page.getByText(/email changed/i)).toBeVisible()
 
 	const updatedUser = await prisma.user.findUnique({

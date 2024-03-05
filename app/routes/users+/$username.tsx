@@ -59,13 +59,13 @@ export default function ProfileRoute() {
 						<h1 className="text-center text-h2">{userDisplayName}</h1>
 					</div>
 					<p className="mt-2 text-center text-muted-foreground">
-						Joined {data.userJoinedDisplay}
+						Inscrit le {data.userJoinedDisplay}
 					</p>
 					{isLoggedInUser ? (
 						<Form action="/logout" method="POST" className="mt-3">
 							<Button type="submit" variant="link" size="pill">
 								<Icon name="exit" className="scale-125 max-md:scale-150">
-									Logout
+									Déconnexion
 								</Icon>
 							</Button>
 						</Form>
@@ -75,19 +75,19 @@ export default function ProfileRoute() {
 							<>
 								<Button asChild>
 									<Link to="notes" prefetch="intent">
-										My notes
+										Mes notes
 									</Link>
 								</Button>
 								<Button asChild>
 									<Link to="/settings/profile" prefetch="intent">
-										Edit profile
+										Editer le profil
 									</Link>
 								</Button>
 							</>
 						) : (
 							<Button asChild>
 								<Link to="notes" prefetch="intent">
-									{userDisplayName}'s notes
+									Notes de {userDisplayName}
 								</Link>
 							</Button>
 						)}
@@ -101,10 +101,10 @@ export default function ProfileRoute() {
 export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
 	const displayName = data?.user.name ?? params.username
 	return [
-		{ title: `${displayName} | Epic Notes` },
+		{ title: `${displayName} | Lopin` },
 		{
 			name: 'description',
-			content: `Profile of ${displayName} on Epic Notes`,
+			content: `Profil de ${displayName} sur Lopin`,
 		},
 	]
 }
@@ -114,7 +114,7 @@ export function ErrorBoundary() {
 		<GeneralErrorBoundary
 			statusHandlers={{
 				404: ({ params }) => (
-					<p>No user with the username "{params.username}" exists</p>
+					<p>Aucun utilisateur n'a le nom "{params.username}"</p>
 				),
 			}}
 		/>

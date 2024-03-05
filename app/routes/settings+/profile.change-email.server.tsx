@@ -79,15 +79,15 @@ export function EmailChangeEmail({
 		<E.Html lang="en" dir="ltr">
 			<E.Container>
 				<h1>
-					<E.Text>Epic Notes Email Change</E.Text>
+					<E.Text>Lopin Changement d'email</E.Text>
 				</h1>
 				<p>
 					<E.Text>
-						Here's your verification code: <strong>{otp}</strong>
+						Voici votre code de vérification: <strong>{otp}</strong>
 					</E.Text>
 				</p>
 				<p>
-					<E.Text>Or click the link:</E.Text>
+					<E.Text>Ou cliquez sur le lien:</E.Text>
 				</p>
 				<E.Link href={verifyUrl}>{verifyUrl}</E.Link>
 			</E.Container>
@@ -100,19 +100,19 @@ function EmailChangeNoticeEmail({ userId }: { userId: string }) {
 		<E.Html lang="en" dir="ltr">
 			<E.Container>
 				<h1>
-					<E.Text>Your Epic Notes email has been changed</E.Text>
+					<E.Text>Votre email a été mis à jour sur Lopin</E.Text>
 				</h1>
 				<p>
 					<E.Text>
-						We're writing to let you know that your Epic Notes email has been
-						changed.
+						Nous vous écrivons pour vous informer que votre email a été changé
+						sur Lopin.
 					</E.Text>
 				</p>
 				<p>
 					<E.Text>
-						If you changed your email address, then you can safely ignore this.
-						But if you did not change your email address, then please contact
-						support immediately.
+						Si vous avez changé votre adresse email, alors vous pouvez ignorer
+						ce message en toute sécurité. Mais si vous n'avez pas changé votre
+						adresse email, veuillez contacter le support immédiatement.
 					</E.Text>
 				</p>
 				<p>

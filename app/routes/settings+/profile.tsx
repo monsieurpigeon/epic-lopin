@@ -14,7 +14,7 @@ export const BreadcrumbHandle = z.object({ breadcrumb: z.any() })
 export type BreadcrumbHandle = z.infer<typeof BreadcrumbHandle>
 
 export const handle: BreadcrumbHandle & SEOHandle = {
-	breadcrumb: <Icon name="file-text">Edit Profile</Icon>,
+	breadcrumb: <Icon name="file-text">Editer le Profil</Icon>,
 	getSitemapEntries: () => null,
 }
 
@@ -56,7 +56,7 @@ export default function EditUserProfile() {
 							className="text-muted-foreground"
 							to={`/users/${user.username}`}
 						>
-							Profile
+							Profil
 						</Link>
 					</li>
 					{breadcrumbs.map((breadcrumb, i, arr) => (

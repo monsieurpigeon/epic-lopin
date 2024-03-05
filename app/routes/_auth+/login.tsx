@@ -14,10 +14,6 @@ import { CheckboxField, ErrorList, Field } from '#app/components/forms.tsx'
 import { Spacer } from '#app/components/spacer.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { login, requireAnonymous } from '#app/utils/auth.server.ts'
-import {
-	ProviderConnectionForm,
-	providerNames,
-} from '#app/utils/connections.tsx'
 import { checkHoneypot } from '#app/utils/honeypot.server.ts'
 import { useIsPending } from '#app/utils/misc.tsx'
 import { PasswordSchema, UsernameSchema } from '#app/utils/user-validation.ts'
@@ -96,10 +92,7 @@ export default function LoginPage() {
 		<div className="flex min-h-full flex-col justify-center pb-32 pt-20">
 			<div className="mx-auto w-full max-w-md">
 				<div className="flex flex-col gap-3 text-center">
-					<h1 className="text-h1">Welcome back!</h1>
-					<p className="text-body-md text-muted-foreground">
-						Please enter your details.
-					</p>
+					<h1 className="text-h1">Bienvenue!</h1>
 				</div>
 				<Spacer size="xs" />
 
@@ -108,7 +101,7 @@ export default function LoginPage() {
 						<Form method="POST" {...getFormProps(form)}>
 							<HoneypotInputs />
 							<Field
-								labelProps={{ children: 'Username' }}
+								labelProps={{ children: 'E-mail' }}
 								inputProps={{
 									...getInputProps(fields.username, { type: 'text' }),
 									autoFocus: true,
@@ -119,7 +112,7 @@ export default function LoginPage() {
 							/>
 
 							<Field
-								labelProps={{ children: 'Password' }}
+								labelProps={{ children: 'Mot de passe' }}
 								inputProps={{
 									...getInputProps(fields.password, {
 										type: 'password',
@@ -133,7 +126,7 @@ export default function LoginPage() {
 								<CheckboxField
 									labelProps={{
 										htmlFor: fields.remember.id,
-										children: 'Remember me',
+										children: 'Se souvenir de moi',
 									}}
 									buttonProps={getInputProps(fields.remember, {
 										type: 'checkbox',
@@ -145,7 +138,7 @@ export default function LoginPage() {
 										to="/forgot-password"
 										className="text-body-xs font-semibold"
 									>
-										Forgot password?
+										Mot de passe oublié ?
 									</Link>
 								</div>
 							</div>
@@ -162,23 +155,13 @@ export default function LoginPage() {
 									type="submit"
 									disabled={isPending}
 								>
-									Log in
+									Connexion
 								</StatusButton>
 							</div>
 						</Form>
-						<ul className="mt-5 flex flex-col gap-5 border-b-2 border-t-2 border-border py-3">
-							{providerNames.map(providerName => (
-								<li key={providerName}>
-									<ProviderConnectionForm
-										type="Login"
-										providerName={providerName}
-										redirectTo={redirectTo}
-									/>
-								</li>
-							))}
-						</ul>
+
 						<div className="flex items-center justify-center gap-2 pt-6">
-							<span className="text-muted-foreground">New here?</span>
+							<span className="text-muted-foreground">Nouveau ici ?</span>
 							<Link
 								to={
 									redirectTo
@@ -186,7 +169,7 @@ export default function LoginPage() {
 										: '/signup'
 								}
 							>
-								Create an account
+								Créer un compte
 							</Link>
 						</div>
 					</div>
@@ -197,7 +180,7 @@ export default function LoginPage() {
 }
 
 export const meta: MetaFunction = () => {
-	return [{ title: 'Login to Epic Notes' }]
+	return [{ title: 'Connexion à Lopin' }]
 }
 
 export function ErrorBoundary() {

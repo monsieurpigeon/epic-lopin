@@ -3,8 +3,8 @@ import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import {
 	json,
 	redirect,
-	type LoaderFunctionArgs,
 	type ActionFunctionArgs,
+	type LoaderFunctionArgs,
 	type MetaFunction,
 } from '@remix-run/node'
 import {
@@ -120,13 +120,13 @@ export async function action({ request }: ActionFunctionArgs) {
 
 	return redirectWithToast(
 		safeRedirect(redirectTo),
-		{ title: 'Welcome', description: 'Thanks for signing up!' },
+		{ title: 'Bienvenue', description: 'Merci de vous être inscrit!' },
 		{ headers },
 	)
 }
 
 export const meta: MetaFunction = () => {
-	return [{ title: 'Setup Epic Notes Account' }]
+	return [{ title: 'Configurer le compte Lopin' }]
 }
 
 export default function SignupRoute() {

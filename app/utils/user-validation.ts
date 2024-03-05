@@ -1,9 +1,9 @@
 import { z } from 'zod'
 
 export const UsernameSchema = z
-	.string({ required_error: 'Username is required' })
-	.min(3, { message: 'Username is too short' })
-	.max(20, { message: 'Username is too long' })
+	.string({ required_error: "L'email est requis" })
+	.min(3, { message: "L'email est trop court" })
+	.max(20, { message: "L'email est trop long" })
 	.regex(/^[a-zA-Z0-9_]+$/, {
 		message: 'Username can only include letters, numbers, and underscores',
 	})

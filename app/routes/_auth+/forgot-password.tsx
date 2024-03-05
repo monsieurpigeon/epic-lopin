@@ -70,7 +70,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 	const response = await sendEmail({
 		to: user.email,
-		subject: `Epic Notes Password Reset`,
+		subject: `Lopin - Remise à zéro de votre mot de passe`,
 		react: (
 			<ForgotPasswordEmail onboardingUrl={verifyUrl.toString()} otp={otp} />
 		),
@@ -97,15 +97,15 @@ function ForgotPasswordEmail({
 		<E.Html lang="en" dir="ltr">
 			<E.Container>
 				<h1>
-					<E.Text>Epic Notes Password Reset</E.Text>
+					<E.Text>Lopin Réinitialisation du mot de passe</E.Text>
 				</h1>
 				<p>
 					<E.Text>
-						Here's your verification code: <strong>{otp}</strong>
+						Voici votre code de vérification: <strong>{otp}</strong>
 					</E.Text>
 				</p>
 				<p>
-					<E.Text>Or click the link:</E.Text>
+					<E.Text>Ou cliquez sur le lien:</E.Text>
 				</p>
 				<E.Link href={onboardingUrl}>{onboardingUrl}</E.Link>
 			</E.Container>
@@ -114,7 +114,7 @@ function ForgotPasswordEmail({
 }
 
 export const meta: MetaFunction = () => {
-	return [{ title: 'Password Recovery for Epic Notes' }]
+	return [{ title: 'Lopin - Récuperation du mot de passe' }]
 }
 
 export default function ForgotPasswordRoute() {
@@ -134,9 +134,10 @@ export default function ForgotPasswordRoute() {
 		<div className="container pb-32 pt-20">
 			<div className="flex flex-col justify-center">
 				<div className="text-center">
-					<h1 className="text-h1">Forgot Password</h1>
+					<h1 className="text-h1">Oubli du mot de passe</h1>
 					<p className="mt-3 text-body-md text-muted-foreground">
-						No worries, we'll send you reset instructions.
+						Pas de soucis, on vous envoi les instructions pour réinitialiser
+						votre mot de passe.
 					</p>
 				</div>
 				<div className="mx-auto mt-16 min-w-full max-w-sm sm:min-w-[368px]">
@@ -168,7 +169,7 @@ export default function ForgotPasswordRoute() {
 								type="submit"
 								disabled={forgotPassword.state !== 'idle'}
 							>
-								Recover password
+								Récupérer le mot de passe
 							</StatusButton>
 						</div>
 					</forgotPassword.Form>
@@ -176,7 +177,7 @@ export default function ForgotPasswordRoute() {
 						to="/login"
 						className="mt-11 text-center text-body-sm font-bold"
 					>
-						Back to Login
+						Retour à la connexion
 					</Link>
 				</div>
 			</div>

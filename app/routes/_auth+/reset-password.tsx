@@ -63,7 +63,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export const meta: MetaFunction = () => {
-	return [{ title: 'Reset Password | Epic Notes' }]
+	return [{ title: 'Réinitialisation du mot de passe | Lopin' }]
 }
 
 export default function ResetPasswordPage() {
@@ -94,7 +94,7 @@ export default function ResetPasswordPage() {
 					<Field
 						labelProps={{
 							htmlFor: fields.password.id,
-							children: 'New Password',
+							children: 'Nouveau mot de passe',
 						}}
 						inputProps={{
 							...getInputProps(fields.password, { type: 'password' }),
@@ -106,7 +106,7 @@ export default function ResetPasswordPage() {
 					<Field
 						labelProps={{
 							htmlFor: fields.confirmPassword.id,
-							children: 'Confirm Password',
+							children: 'Confirmer le mot de passe',
 						}}
 						inputProps={{
 							...getInputProps(fields.confirmPassword, { type: 'password' }),
@@ -123,7 +123,7 @@ export default function ResetPasswordPage() {
 						type="submit"
 						disabled={isPending}
 					>
-						Reset password
+						Réinitialiser le mot de passe
 					</StatusButton>
 				</Form>
 			</div>

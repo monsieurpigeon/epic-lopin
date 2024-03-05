@@ -7,16 +7,12 @@ import {
 	type ActionFunctionArgs,
 	type MetaFunction,
 } from '@remix-run/node'
-import { Form, useActionData, useSearchParams } from '@remix-run/react'
+import { Form, useActionData } from '@remix-run/react'
 import { HoneypotInputs } from 'remix-utils/honeypot/react'
 import { z } from 'zod'
 import { GeneralErrorBoundary } from '#app/components/error-boundary.tsx'
 import { ErrorList, Field } from '#app/components/forms.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
-import {
-	ProviderConnectionForm,
-	providerNames,
-} from '#app/utils/connections.tsx'
 import { prisma } from '#app/utils/db.server.ts'
 import { sendEmail } from '#app/utils/email.server.ts'
 import { checkHoneypot } from '#app/utils/honeypot.server.ts'
@@ -66,7 +62,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 	const response = await sendEmail({
 		to: email,
-		subject: `Welcome to Epic Notes!`,
+		subject: `Bienvenue sur Lopin!`,
 		react: <SignupEmail onboardingUrl={verifyUrl.toString()} otp={otp} />,
 	})
 
@@ -95,15 +91,15 @@ export function SignupEmail({
 		<E.Html lang="en" dir="ltr">
 			<E.Container>
 				<h1>
-					<E.Text>Welcome to Epic Notes!</E.Text>
+					<E.Text>Bienvenue sur Lopin!</E.Text>
 				</h1>
 				<p>
 					<E.Text>
-						Here's your verification code: <strong>{otp}</strong>
+						Voici votre code de vérification: <strong>{otp}</strong>
 					</E.Text>
 				</p>
 				<p>
-					<E.Text>Or click the link to get started:</E.Text>
+					<E.Text>Ou cliquez sur le lien pour démarrer:</E.Text>
 				</p>
 				<E.Link href={onboardingUrl}>{onboardingUrl}</E.Link>
 			</E.Container>
@@ -112,14 +108,12 @@ export function SignupEmail({
 }
 
 export const meta: MetaFunction = () => {
-	return [{ title: 'Sign Up | Epic Notes' }]
+	return [{ title: 'Inscription | Lopin' }]
 }
 
 export default function SignupRoute() {
 	const actionData = useActionData<typeof action>()
 	const isPending = useIsPending()
-	const [searchParams] = useSearchParams()
-	const redirectTo = searchParams.get('redirectTo')
 
 	const [form, fields] = useForm({
 		id: 'signup-form',
@@ -135,9 +129,9 @@ export default function SignupRoute() {
 	return (
 		<div className="container flex flex-col justify-center pb-32 pt-20">
 			<div className="text-center">
-				<h1 className="text-h1">Let's start your journey!</h1>
+				<h1 className="text-h1">C'est parti !</h1>
 				<p className="mt-3 text-body-md text-muted-foreground">
-					Please enter your email.
+					Veuillez saisir votre adresse e-mail pour commencer.
 				</p>
 			</div>
 			<div className="mx-auto mt-16 min-w-full max-w-sm sm:min-w-[368px]">
@@ -146,7 +140,7 @@ export default function SignupRoute() {
 					<Field
 						labelProps={{
 							htmlFor: fields.email.id,
-							children: 'Email',
+							children: 'E-mail',
 						}}
 						inputProps={{
 							...getInputProps(fields.email, { type: 'email' }),
@@ -162,20 +156,9 @@ export default function SignupRoute() {
 						type="submit"
 						disabled={isPending}
 					>
-						Submit
+						Continuer
 					</StatusButton>
 				</Form>
-				<ul className="mt-5 flex flex-col gap-5 border-b-2 border-t-2 border-border py-3">
-					{providerNames.map(providerName => (
-						<li key={providerName}>
-							<ProviderConnectionForm
-								type="Signup"
-								providerName={providerName}
-								redirectTo={redirectTo}
-							/>
-						</li>
-					))}
-				</ul>
 			</div>
 		</div>
 	)

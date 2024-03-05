@@ -10,7 +10,6 @@ import { ensurePrimary } from '#app/utils/litefs.server.ts'
 import { getDomainUrl } from '#app/utils/misc.tsx'
 import { redirectWithToast } from '#app/utils/toast.server.ts'
 import { generateTOTP, verifyTOTP } from '#app/utils/totp.server.ts'
-import { type twoFAVerifyVerificationType } from '../settings+/profile.two-factor.verify.tsx'
 import {
 	handleVerification as handleLoginTwoFactorVerification,
 	shouldRequestTwoFA,
@@ -118,7 +117,7 @@ export async function isCodeValid({
 	target,
 }: {
 	code: string
-	type: VerificationTypes | typeof twoFAVerifyVerificationType
+	type: VerificationTypes
 	target: string
 }) {
 	const verification = await prisma.verification.findUnique({

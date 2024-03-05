@@ -161,7 +161,7 @@ jobs:
           mv ./other/.dockerignore ./.dockerignore
 
       - name: 🎈 Setup Fly
-        uses: superfly/flyctl-actions/setup-flyctl@v1.5
+        uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: 🚀 Deploy Staging
         if: ${{ github.ref == 'refs/heads/dev' }}

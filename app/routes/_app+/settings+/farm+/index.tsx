@@ -24,7 +24,7 @@ export const handle: SEOHandle = {
 }
 
 export const FarmFormSchema = z.object({
-	id: z.string(),
+	slug: z.string(),
 	name: z.string(),
 	description: z.string(),
 })
@@ -34,7 +34,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 	const farm = await prisma.farm.findFirst({
 		where: { userId },
-		select: { id: true, name: true, description: true },
+		select: { id: true, name: true, slug: true, description: true },
 	})
 
 	return json({
@@ -78,13 +78,13 @@ async function farmUpdateAction({ userId, formData }: FarmActionArgs) {
 
 	await prisma.farm.upsert({
 		create: {
-			id: data.id,
+			slug: data.slug,
 			userId,
 			name: data.name,
 			description: data.description,
 		},
 		update: {
-			id: data.id,
+			slug: data.slug,
 			userId,
 			name: data.name,
 			description: data.description,
@@ -110,7 +110,7 @@ function UpdateFarm() {
 			return parseWithZod(formData, { schema: FarmFormSchema })
 		},
 		defaultValue: {
-			id: data.farm?.id,
+			slug: data.farm?.slug,
 			name: data.farm?.name,
 			description: data.farm?.description,
 		},
@@ -130,10 +130,9 @@ function UpdateFarm() {
 				<Field
 					labelProps={{ children: 'URL' }}
 					inputProps={{
-						autoFocus: true,
-						...getInputProps(fields.id, { type: 'text' }),
+						...getInputProps(fields.slug, { type: 'text' }),
 					}}
-					errors={fields.id.errors}
+					errors={fields.slug.errors}
 				/>
 				<TextareaField
 					labelProps={{ children: 'Description' }}
@@ -154,13 +153,15 @@ function UpdateFarm() {
 				>
 					Enregistrer
 				</StatusButton>
-				<Link
-					to={`/farms/${data.farm?.id}`}
-					target="_blank"
-					className="text-body-md underline"
-				>
-					<Icon name="arrow-right">Visiter</Icon>
-				</Link>
+				{data.farm?.id && (
+					<Link
+						to={`/farms/${data.farm?.slug}`}
+						target="_blank"
+						className="text-body-md underline"
+					>
+						<Icon name="arrow-right">Visiter</Icon>
+					</Link>
+				)}
 			</div>
 		</fetcher.Form>
 	)

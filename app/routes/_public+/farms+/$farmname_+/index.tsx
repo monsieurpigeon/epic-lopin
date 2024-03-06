@@ -27,9 +27,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const farm = await prisma.farm.findUnique({
-		where: { id: params.farmname },
+		where: { slug: params.farmname },
 		select: {
 			id: true,
+			slug: true,
 			name: true,
 			description: true,
 		},

@@ -29,7 +29,8 @@ model User {
 }
 
 model Farm {
-  id          String   @id
+  id          String   @id @default(cuid())
+  slug        String   @unique
   name        String
   description String
   createdAt   DateTime @default(now())

@@ -5,7 +5,7 @@ import {
 	type MetaFunction,
 } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { prisma } from '../../../utils/db.server'
+import { prisma } from '../../../../utils/db.server'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	return [

@@ -5,9 +5,9 @@ import {
 	type MetaFunction,
 } from '@remix-run/node'
 import { Link } from '@remix-run/react'
-import { Button } from '../../components/ui/button'
-import { prisma } from '../../utils/db.server'
-import { useOptionalUser } from '../../utils/user'
+import { Button } from '../../../components/ui/button'
+import { prisma } from '../../../utils/db.server'
+import { useOptionalUser } from '../../../utils/user'
 
 export const meta: MetaFunction = () => [{ title: 'Lopin' }]
 

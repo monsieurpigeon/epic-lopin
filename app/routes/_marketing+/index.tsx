@@ -1,8 +1,41 @@
-import { type MetaFunction } from '@remix-run/node'
+import { invariantResponse } from '@epic-web/invariant'
+import {
+	json,
+	type LoaderFunctionArgs,
+	type MetaFunction,
+} from '@remix-run/node'
+import { Link, useLoaderData } from '@remix-run/react'
+import { Button } from '../../components/ui/button'
+import { prisma } from '../../utils/db.server'
+import { useOptionalUser } from '../../utils/user'
 
 export const meta: MetaFunction = () => [{ title: 'Lopin' }]
 
+export async function loader({ params }: LoaderFunctionArgs) {
+	const user = await prisma.user.findFirst({
+		select: {
+			id: true,
+			name: true,
+			username: true,
+			createdAt: true,
+			image: { select: { id: true } },
+		},
+		where: {
+			username: params.username,
+		},
+	})
+
+	invariantResponse(user, 'User not found', { status: 404 })
+
+	return json({ user, userJoinedDisplay: user.createdAt.toLocaleDateString() })
+}
+
 export default function Index() {
+	const data = useLoaderData<typeof loader>()
+	const loggedInUser = useOptionalUser()
+	const isLoggedInUser = data.user.id === loggedInUser?.id
+	console.log({ data, loggedInUser, isLoggedInUser })
+
 	return (
 		<main className="font-poppins grid h-full place-items-center">
 			<div className="grid place-items-center px-4 py-16 xl:grid-cols-2 xl:gap-24">
@@ -19,6 +52,16 @@ export default function Index() {
 					>
 						Un site web pour ma ferme, en 5 minutes
 					</p>
+
+					<div className="mt-10 flex gap-4">
+						{true && (
+							<Button asChild>
+								<Link to="farms" prefetch="intent">
+									Ma ferme
+								</Link>
+							</Button>
+						)}
+					</div>
 				</div>
 			</div>
 		</main>

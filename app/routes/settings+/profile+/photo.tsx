@@ -7,8 +7,8 @@ import {
 	redirect,
 	unstable_createMemoryUploadHandler,
 	unstable_parseMultipartFormData,
-	type LoaderFunctionArgs,
 	type ActionFunctionArgs,
+	type LoaderFunctionArgs,
 } from '@remix-run/node'
 import {
 	Form,
@@ -29,7 +29,7 @@ import {
 	useDoubleCheck,
 	useIsPending,
 } from '#app/utils/misc.tsx'
-import { type BreadcrumbHandle } from './profile.tsx'
+import { type BreadcrumbHandle } from './_layout.tsx'
 
 export const handle: BreadcrumbHandle & SEOHandle = {
 	breadcrumb: <Icon name="avatar">Photo</Icon>,

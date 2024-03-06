@@ -4,7 +4,7 @@ import {
 	type LoaderFunctionArgs,
 	type MetaFunction,
 } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import { Button } from '../../components/ui/button'
 import { prisma } from '../../utils/db.server'
 import { useOptionalUser } from '../../utils/user'
@@ -31,10 +31,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function Index() {
-	const data = useLoaderData<typeof loader>()
-	const loggedInUser = useOptionalUser()
-	const isLoggedInUser = data.user.id === loggedInUser?.id
-	console.log({ data, loggedInUser, isLoggedInUser })
+	const user = useOptionalUser()
+	const isLoggedInUser = user?.id
 
 	return (
 		<main className="font-poppins grid h-full place-items-center">
@@ -42,21 +40,24 @@ export default function Index() {
 				<div className="flex max-w-md flex-col items-center text-center xl:order-2 xl:items-start xl:text-left">
 					<h1
 						data-heading
-						className="mt-8 animate-slide-top text-4xl font-medium text-foreground [animation-delay:0.3s] [animation-fill-mode:backwards] md:text-5xl xl:mt-4 xl:animate-slide-left xl:text-6xl xl:[animation-delay:0.8s] xl:[animation-fill-mode:backwards]"
+						className="mt-8 animate-slide-top text-4xl font-medium text-foreground [animation-delay:0.3s] [animation-fill-mode:backwards] md:text-5xl xl:mt-4 xl:animate-slide-left xl:text-6xl xl:[animation-delay:0.2s] xl:[animation-fill-mode:backwards]"
 					>
 						Lopin
 					</h1>
 					<p
 						data-paragraph
-						className="mt-6 animate-slide-top text-xl/7 text-muted-foreground [animation-fill-mode:backwards] [animation-delay:0.8s] xl:mt-8 xl:animate-slide-left xl:text-xl/6 xl:leading-10 xl:[animation-fill-mode:backwards] xl:[animation-delay:1s]"
+						className="mt-6 animate-slide-top text-xl/7 text-muted-foreground [animation-fill-mode:backwards] [animation-delay:0.4s] xl:mt-8 xl:animate-slide-left xl:text-xl/6 xl:leading-10 xl:[animation-fill-mode:backwards] xl:[animation-delay:0.5s]"
 					>
 						Un site web pour ma ferme, en 5 minutes
 					</p>
 
 					<div className="mt-10 flex gap-4">
-						{true && (
-							<Button asChild>
-								<Link to="farms" prefetch="intent">
+						{isLoggedInUser && (
+							<Button
+								asChild
+								className="animate-slide-top [animation-fill-mode:backwards] [animation-delay:0.8s] xl:animate-slide-left xl:[animation-fill-mode:backwards] xl:[animation-delay:1s]"
+							>
+								<Link to="settings/farm" prefetch="intent">
 									Ma ferme
 								</Link>
 							</Button>

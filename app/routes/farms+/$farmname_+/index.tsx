@@ -1,7 +1,29 @@
 import { invariantResponse } from '@epic-web/invariant'
-import { json, type LoaderFunctionArgs } from '@remix-run/node'
+import {
+	json,
+	type LoaderFunctionArgs,
+	type MetaFunction,
+} from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { prisma } from '../../../utils/db.server'
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+	return [
+		{ title: data?.farm.name },
+		{
+			name: 'description',
+			content: data?.farm.description,
+		},
+		{
+			property: 'og:title',
+			content: data?.farm.name,
+		},
+		{
+			property: 'og:description',
+			content: data?.farm.description,
+		},
+	]
+}
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const farm = await prisma.farm.findUnique({

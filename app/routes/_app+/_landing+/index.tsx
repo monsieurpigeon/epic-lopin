@@ -48,7 +48,7 @@ export default function Index() {
 						data-paragraph
 						className="mt-6 animate-slide-top text-xl/7 text-muted-foreground [animation-fill-mode:backwards] [animation-delay:0.4s] xl:mt-8 xl:animate-slide-left xl:text-xl/6 xl:leading-10 xl:[animation-fill-mode:backwards] xl:[animation-delay:0.5s]"
 					>
-						Un site web pour ma ferme, en 5 minutes
+						Un site web pour ma ferme, en 10 minutes chrono
 					</p>
 
 					<div className="mt-10 flex gap-4">

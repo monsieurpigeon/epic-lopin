@@ -58,7 +58,7 @@ export default function Index() {
 								className="animate-slide-top [animation-fill-mode:backwards] [animation-delay:0.8s] xl:animate-slide-left xl:[animation-fill-mode:backwards] xl:[animation-delay:1s]"
 							>
 								<Link to="settings/farm" prefetch="intent">
-									Ma ferme
+									Créer mon site
 								</Link>
 							</Button>
 						)}

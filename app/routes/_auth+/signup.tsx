@@ -131,7 +131,7 @@ export default function SignupRoute() {
 			<div className="text-center">
 				<h1 className="text-h1">C'est parti !</h1>
 				<p className="mt-3 text-body-md text-muted-foreground">
-					Veuillez saisir votre adresse e-mail pour commencer.
+					Veuillez saisir votre adresse email pour commencer.
 				</p>
 			</div>
 			<div className="mx-auto mt-16 min-w-full max-w-sm sm:min-w-[368px]">
@@ -140,7 +140,7 @@ export default function SignupRoute() {
 					<Field
 						labelProps={{
 							htmlFor: fields.email.id,
-							children: 'E-mail',
+							children: 'Email',
 						}}
 						inputProps={{
 							...getInputProps(fields.email, { type: 'email' }),

@@ -27,17 +27,19 @@ test('Users can update their password', async ({ page, login }) => {
 	const user = await login({ password: oldPassword })
 	await page.goto('/settings/profile')
 
-	await page.getByRole('link', { name: /change password/i }).click()
+	await page.getByRole('link', { name: /changer le mot de passe/i }).click()
 
 	await page
-		.getByRole('textbox', { name: /^current password/i })
+		.getByRole('textbox', { name: /^mot de passe actuel/i })
 		.fill(oldPassword)
-	await page.getByRole('textbox', { name: /^new password/i }).fill(newPassword)
 	await page
-		.getByRole('textbox', { name: /^confirm new password/i })
+		.getByRole('textbox', { name: /^nouveau mot de passe/i })
+		.fill(newPassword)
+	await page
+		.getByRole('textbox', { name: /^confirmer le nouveau mot de passe/i })
 		.fill(newPassword)
 
-	await page.getByRole('button', { name: /^change password/i }).click()
+	await page.getByRole('button', { name: /^changer le mot de passe/i }).click()
 
 	await expect(page).toHaveURL(`/settings/profile`)
 
@@ -87,9 +89,11 @@ test('Users can change their email address', async ({ page, login }) => {
 	const newEmailAddress = faker.internet.email().toLowerCase()
 	expect(preUpdateUser.email).not.toEqual(newEmailAddress)
 	await page.goto('/settings/profile')
-	await page.getByRole('link', { name: /change email/i }).click()
-	await page.getByRole('textbox', { name: /new email/i }).fill(newEmailAddress)
-	await page.getByRole('button', { name: /send confirmation/i }).click()
+	await page.getByRole('link', { name: /changer l'email/i }).click()
+	await page
+		.getByRole('textbox', { name: /nouvel email/i })
+		.fill(newEmailAddress)
+	await page.getByRole('button', { name: /envoyer la confirmation/i }).click()
 	await expect(page.getByText(/vérifiez vos emails/i)).toBeVisible()
 	const email = await waitFor(() => readEmail(newEmailAddress), {
 		errorMessage: 'Confirmation email was not sent',
@@ -100,7 +104,7 @@ test('Users can change their email address', async ({ page, login }) => {
 	invariant(code, 'Onboarding code not found')
 	await page.getByRole('textbox', { name: /code/i }).fill(code)
 	await page.getByRole('button', { name: /continuer/i }).click()
-	await expect(page.getByText(/email changed/i)).toBeVisible()
+	await expect(page.getByText(/email changé/i)).toBeVisible()
 
 	const updatedUser = await prisma.user.findUnique({
 		where: { id: preUpdateUser.id },
@@ -111,5 +115,5 @@ test('Users can change their email address', async ({ page, login }) => {
 	const noticeEmail = await waitFor(() => readEmail(preUpdateUser.email), {
 		errorMessage: 'Notice email was not sent',
 	})
-	expect(noticeEmail.subject).toContain('changed')
+	expect(noticeEmail.subject).toContain('changé')
 })

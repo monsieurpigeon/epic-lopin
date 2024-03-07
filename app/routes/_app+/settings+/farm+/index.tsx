@@ -11,13 +11,12 @@ import {
 	type ActionFunctionArgs,
 	type LoaderFunctionArgs,
 } from '@remix-run/node'
-import { Link, useFetcher, useLoaderData } from '@remix-run/react'
+import { useFetcher, useLoaderData } from '@remix-run/react'
 import { z } from 'zod'
 import { ErrorList, Field, TextareaField } from '#app/components/forms.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { requireUserId } from '#app/utils/auth.server.ts'
 import { prisma } from '#app/utils/db.server.ts'
-import { Icon } from '../../../../components/ui/icon'
 
 export const handle: SEOHandle = {
 	getSitemapEntries: () => null,
@@ -153,15 +152,6 @@ function UpdateFarm() {
 				>
 					Enregistrer
 				</StatusButton>
-				{data.farm?.id && (
-					<Link
-						to={`/farms/${data.farm?.slug}`}
-						target="_blank"
-						className="text-body-md underline"
-					>
-						<Icon name="arrow-right">Visiter</Icon>
-					</Link>
-				)}
 			</div>
 		</fetcher.Form>
 	)

@@ -1,7 +1,7 @@
 import { invariantResponse } from '@epic-web/invariant'
 import { type SEOHandle } from '@nasa-gcn/remix-seo'
 import { json, type LoaderFunctionArgs } from '@remix-run/node'
-import { Link, Outlet, useMatches } from '@remix-run/react'
+import { Link, Outlet, useLoaderData, useMatches } from '@remix-run/react'
 import { z } from 'zod'
 import { Spacer } from '#app/components/spacer.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
@@ -24,8 +24,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 		where: { id: userId },
 		select: { username: true },
 	})
+	const farm = await prisma.farm.findFirst({
+		where: { userId },
+		select: { id: true, name: true, slug: true, description: true },
+	})
 	invariantResponse(user, 'User not found', { status: 404 })
-	return json({})
+	return json({
+		farm,
+	})
 }
 
 const BreadcrumbHandleMatch = z.object({
@@ -33,6 +39,8 @@ const BreadcrumbHandleMatch = z.object({
 })
 
 export default function EditUserFarm() {
+	const data = useLoaderData<typeof loader>()
+
 	const user = useUser()
 	const matches = useMatches()
 	const breadcrumbs = matches
@@ -49,8 +57,8 @@ export default function EditUserFarm() {
 
 	return (
 		<div className="m-auto mb-24 mt-16 max-w-3xl">
-			<div className="container">
-				<ul className="flex gap-3">
+			<div className="container flex items-center justify-between">
+				<ul className="flex  gap-3">
 					<li>
 						<Link
 							className="text-muted-foreground"
@@ -70,6 +78,17 @@ export default function EditUserFarm() {
 						</li>
 					))}
 				</ul>
+				<div>
+					{data.farm?.id && (
+						<Link
+							to={`/farms/${data.farm?.slug}`}
+							target="_blank"
+							className="text-body-md underline"
+						>
+							<Icon name="arrow-right">Visiter ma ferme</Icon>
+						</Link>
+					)}
+				</div>
 			</div>
 			<Spacer size="xs" />
 			<main className="mx-auto bg-muted px-6 py-8 md:container md:rounded-3xl">

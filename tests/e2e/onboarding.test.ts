@@ -47,7 +47,7 @@ test('onboarding with link', async ({ page, getOnboardingData }) => {
 
 	await expect(page).toHaveURL(`/signup`)
 
-	const emailTextbox = page.getByRole('textbox', { name: /e-mail/i })
+	const emailTextbox = page.getByRole('textbox', { name: /email/i })
 	await emailTextbox.click()
 	await emailTextbox.fill(onboardingData.email)
 
@@ -109,7 +109,7 @@ test('onboarding with a short code', async ({ page, getOnboardingData }) => {
 
 	await page.goto('/signup')
 
-	const emailTextbox = page.getByRole('textbox', { name: /e-mail/i })
+	const emailTextbox = page.getByRole('textbox', { name: /email/i })
 	await emailTextbox.click()
 	await emailTextbox.fill(onboardingData.email)
 
@@ -138,7 +138,7 @@ test('login as existing user', async ({ page, insertNewUser }) => {
 	const user = await insertNewUser({ password })
 	invariant(user.name, 'User name not found')
 	await page.goto('/login')
-	await page.getByRole('textbox', { name: /e-mail/i }).fill(user.username)
+	await page.getByRole('textbox', { name: /email/i }).fill(user.username)
 	await page.getByLabel(/^mot de passe$/i).fill(password)
 	await page.getByRole('button', { name: /connexion/i }).click()
 	await expect(page).toHaveURL(`/`)
@@ -200,7 +200,7 @@ test('reset password with a link', async ({ page, insertNewUser }) => {
 	).toBeVisible()
 
 	await expect(page).toHaveURL('/login')
-	await page.getByRole('textbox', { name: /e-mail/i }).fill(user.username)
+	await page.getByRole('textbox', { name: /email/i }).fill(user.username)
 	await page.getByLabel(/^mot de passe$/i).fill(originalPassword)
 	await page.getByRole('button', { name: /connexion/i }).click()
 

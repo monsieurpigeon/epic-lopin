@@ -49,16 +49,16 @@ export async function handleVerification({
 
 	void sendEmail({
 		to: preUpdateUser.email,
-		subject: 'Epic Stack email changed',
+		subject: 'email changé',
 		react: <EmailChangeNoticeEmail userId={user.id} />,
 	})
 
 	return redirectWithToast(
 		'/settings/profile',
 		{
-			title: 'Email Changed',
+			title: 'Email changé',
 			type: 'success',
-			description: `Your email has been changed to ${user.email}`,
+			description: `Votre email a été changé pour ${user.email}`,
 		},
 		{
 			headers: {

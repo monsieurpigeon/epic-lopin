@@ -26,7 +26,7 @@ import { type BreadcrumbHandle } from './_layout.tsx'
 import { EmailChangeEmail } from './change-email.server.tsx'
 
 export const handle: BreadcrumbHandle & SEOHandle = {
-	breadcrumb: <Icon name="envelope-closed">Change Email</Icon>,
+	breadcrumb: <Icon name="envelope-closed">Changer email</Icon>,
 	getSitemapEntries: () => null,
 }
 
@@ -62,7 +62,7 @@ export async function action({ request }: ActionFunctionArgs) {
 				ctx.addIssue({
 					path: ['email'],
 					code: z.ZodIssueCode.custom,
-					message: 'This email is already in use.',
+					message: 'Cet email est déjà utilisé.',
 				})
 			}
 		}),
@@ -120,15 +120,18 @@ export default function ChangeEmailIndex() {
 	const isPending = useIsPending()
 	return (
 		<div>
-			<h1 className="text-h1">Change Email</h1>
-			<p>You will receive an email at the new email address to confirm.</p>
+			<h1 className="text-h1">Changer l'email</h1>
 			<p>
-				An email notice will also be sent to your old address {data.user.email}.
+				Vous allez recevoir un email sur cette nouvelle adresse pour confirmer.
+			</p>
+			<p>
+				Un notification par email vous sera également envoyé sur votre ancienne
+				adresse {data.user.email}.
 			</p>
 			<div className="mx-auto mt-5 max-w-sm">
 				<Form method="POST" {...getFormProps(form)}>
 					<Field
-						labelProps={{ children: 'New Email' }}
+						labelProps={{ children: 'Nouvel email' }}
 						inputProps={{
 							...getInputProps(fields.email, { type: 'email' }),
 							autoComplete: 'email',
@@ -140,7 +143,7 @@ export default function ChangeEmailIndex() {
 						<StatusButton
 							status={isPending ? 'pending' : form.status ?? 'idle'}
 						>
-							Send Confirmation
+							Envoyer la confirmation
 						</StatusButton>
 					</div>
 				</Form>

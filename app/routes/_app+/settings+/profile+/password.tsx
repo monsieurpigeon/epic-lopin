@@ -25,7 +25,7 @@ import { PasswordSchema } from '#app/utils/user-validation.ts'
 import { type BreadcrumbHandle } from './_layout.tsx'
 
 export const handle: BreadcrumbHandle & SEOHandle = {
-	breadcrumb: <Icon name="dots-horizontal">Password</Icon>,
+	breadcrumb: <Icon name="dots-horizontal">Mot de passe</Icon>,
 	getSitemapEntries: () => null,
 }
 
@@ -40,7 +40,7 @@ const ChangePasswordForm = z
 			ctx.addIssue({
 				path: ['confirmNewPassword'],
 				code: z.ZodIssueCode.custom,
-				message: 'The passwords must match',
+				message: 'Les mots de passe doivent correspondre.',
 			})
 		}
 	})
@@ -75,7 +75,7 @@ export async function action({ request }: ActionFunctionArgs) {
 						ctx.addIssue({
 							path: ['currentPassword'],
 							code: z.ZodIssueCode.custom,
-							message: 'Incorrect password.',
+							message: 'Mot de passe incorrect.',
 						})
 					}
 				}
@@ -111,8 +111,8 @@ export async function action({ request }: ActionFunctionArgs) {
 		`/settings/profile`,
 		{
 			type: 'success',
-			title: 'Password Changed',
-			description: 'Your password has been changed.',
+			title: 'Mot de passe modifié.',
+			description: 'Votre mot de passe a été modifié avec succès',
 		},
 		{ status: 302 },
 	)
@@ -135,7 +135,7 @@ export default function ChangePasswordRoute() {
 	return (
 		<Form method="POST" {...getFormProps(form)} className="mx-auto max-w-md">
 			<Field
-				labelProps={{ children: 'Current Password' }}
+				labelProps={{ children: 'Mot de passe actuel' }}
 				inputProps={{
 					...getInputProps(fields.currentPassword, { type: 'password' }),
 					autoComplete: 'current-password',
@@ -143,7 +143,7 @@ export default function ChangePasswordRoute() {
 				errors={fields.currentPassword.errors}
 			/>
 			<Field
-				labelProps={{ children: 'New Password' }}
+				labelProps={{ children: 'Nouveau mot de passe' }}
 				inputProps={{
 					...getInputProps(fields.newPassword, { type: 'password' }),
 					autoComplete: 'new-password',
@@ -151,7 +151,7 @@ export default function ChangePasswordRoute() {
 				errors={fields.newPassword.errors}
 			/>
 			<Field
-				labelProps={{ children: 'Confirm New Password' }}
+				labelProps={{ children: 'Confirmer le nouveau mot de passe' }}
 				inputProps={{
 					...getInputProps(fields.confirmNewPassword, {
 						type: 'password',
@@ -163,13 +163,13 @@ export default function ChangePasswordRoute() {
 			<ErrorList id={form.errorId} errors={form.errors} />
 			<div className="grid w-full grid-cols-2 gap-6">
 				<Button variant="secondary" asChild>
-					<Link to="..">Cancel</Link>
+					<Link to="..">Annuler</Link>
 				</Button>
 				<StatusButton
 					type="submit"
 					status={isPending ? 'pending' : form.status ?? 'idle'}
 				>
-					Change Password
+					Changer le mot de passe
 				</StatusButton>
 			</div>
 		</Form>

@@ -29,6 +29,7 @@ model Farm {
   id          String   @id @default(cuid())
   slug        String   @unique
   name        String
+  zip         String
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())

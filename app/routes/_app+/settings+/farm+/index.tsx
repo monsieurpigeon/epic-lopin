@@ -23,8 +23,8 @@ export const handle: SEOHandle = {
 }
 
 export const FarmFormSchema = z.object({
-	slug: z.string(),
 	name: z.string(),
+	zip: z.string(),
 	description: z.string(),
 })
 
@@ -33,7 +33,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 	const farm = await prisma.farm.findFirst({
 		where: { userId },
-		select: { id: true, name: true, slug: true, description: true },
+		select: { id: true, name: true, slug: true, zip: true, description: true },
 	})
 
 	return json({
@@ -61,6 +61,17 @@ export default function EditUserFarm() {
 	)
 }
 
+function slugify(text: string) {
+	return text
+		.toString()
+		.toLowerCase()
+		.replace(/\s+/g, '-') // Replace spaces with -
+		.replace(/[^\w\-]+/g, '') // Remove all non-word chars
+		.replace(/\-\-+/g, '-') // Replace multiple - with single -
+		.replace(/^-+/, '') // Trim - from start of text
+		.replace(/-+$/, '') // Trim - from end of text
+}
+
 async function farmUpdateAction({ userId, formData }: FarmActionArgs) {
 	const submission = await parseWithZod(formData, {
 		async: true,
@@ -75,17 +86,21 @@ async function farmUpdateAction({ userId, formData }: FarmActionArgs) {
 
 	const data = submission.value
 
+	const slug = slugify(`${data.name}-${data.zip}`)
+
 	await prisma.farm.upsert({
 		create: {
-			slug: data.slug,
+			slug,
 			userId,
 			name: data.name,
+			zip: data.zip,
 			description: data.description,
 		},
 		update: {
-			slug: data.slug,
+			slug,
 			userId,
 			name: data.name,
+			zip: data.zip,
 			description: data.description,
 		},
 		where: { userId },
@@ -109,7 +124,7 @@ function UpdateFarm() {
 			return parseWithZod(formData, { schema: FarmFormSchema })
 		},
 		defaultValue: {
-			slug: data.farm?.slug,
+			zip: data.farm?.zip,
 			name: data.farm?.name,
 			description: data.farm?.description,
 		},
@@ -127,11 +142,11 @@ function UpdateFarm() {
 					errors={fields.name.errors}
 				/>
 				<Field
-					labelProps={{ children: 'URL' }}
+					labelProps={{ children: 'Code postal' }}
 					inputProps={{
-						...getInputProps(fields.slug, { type: 'text' }),
+						...getInputProps(fields.zip, { type: 'text' }),
 					}}
-					errors={fields.slug.errors}
+					errors={fields.zip.errors}
 				/>
 				<TextareaField
 					labelProps={{ children: 'Description' }}
